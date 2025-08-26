@@ -381,15 +381,20 @@ form.addEventListener('submit', function(event) {
     headers: {
       'Accept': 'application/json'
     }
-  }).then(response => {
+  })
+  .then(response => {
     if (response.ok) {
       popup.classList.add('show');
       form.reset();
     } else {
-      alert('There was a problem submitting your order.');
+      response.json().then(data => {
+        alert(data.error || 'There was a problem submitting your order.');
+      });
     }
-  }).catch(() => {
-    alert('There was a problem submitting your order.');
+  })
+  .catch((error) => {
+    console.error('Submission error:', error);
+    alert('There was a problem submitting your order. Please check your internet connection and try again.');
   });
 });
 
@@ -402,5 +407,7 @@ popup.addEventListener('click', (e) => {
   }
 });
 </script>
+
 </body>
 </html>
+
