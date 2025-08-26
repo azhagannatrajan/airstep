@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Air Step - Spray & Insole</title>
+<link rel="icon" href="./assests/img/favicon.ico">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #e4f3e1 0%, #c8e6c9 100%);
+    color: #2e662e;
+  }
+
+  header {
+    background-color: #2e662e;
+    color: white;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0 3px 8px rgba(46, 102, 46, 0.7);
+  }
+
+  header h1 {
+    margin: 0;
+    font-weight: 900;
+    font-size: 3rem;
+    letter-spacing: 1.2px;
+    text-shadow: 2px 2px 4px #144214;
+  }
+
+  nav {
+    margin-top: 15px;
+  }
+
+  nav a {
+    color: #b9d8b9;
+    text-decoration: none;
+    margin: 0 20px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover {
+    color: white;
+    border-bottom: 2px solid white;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 25px;
+  }
+
+  section {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(46, 102, 46, 0.25);
+    padding: 35px 40px;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease;
+  }
+
+  section:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(46, 102, 46, 0.35);
+  }
+
+  section h2 {
+    color: #2e662e;
+    font-weight: 800;
+    margin-bottom: 25px;
+    font-size: 2rem;
+    border-left: 5px solid #4caf50;
+    padding-left: 12px;
+    letter-spacing: 0.8px;
+  }
+
+  .product-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    justify-content: space-around;
+  }
+
+  .product-item {
+    flex: 1 1 45%;
+    background-color: #e8f5e9;
+    border-radius: 15px;
+    padding: 24px;
+    box-shadow: inset 0 3px 8px #b2dfdb;
+    text-align: center;
+    transition: box-shadow 0.4s ease;
+  }
+
+  .product-item:hover {
+    box-shadow: 0 6px 20px #4caf50;
+  }
+
+  .product-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 12px rgba(46, 102, 46, 0.3);
+    transition: transform 0.5s ease;
+  }
+
+  .product-item:hover img {
+    transform: scale(1.07);
+  }
+
+  .product-item h3 {
+    margin-bottom: 12px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #1b3c1b;
+  }
+
+  .order-form {
+    text-align: center;
+  }
+
+  .order-form input[type="text"],
+  .order-form input[type="email"],
+  .order-form select,
+  .order-form input[type="number"] {
+    width: 100%;
+    max-width: 320px;
+    padding: 14px 16px;
+    margin: 16px 0 28px;
+    border: 2.8px solid #4caf50;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    color: #2e662e;
+    outline-offset: 3px;
+    outline-color: transparent;
+    transition: border-color 0.4s ease, outline-color 0.4s ease;
+    box-sizing: border-box;
+  }
+
+  .order-form input[type="text"]:focus,
+  .order-form input[type="email"]:focus,
+  .order-form select:focus,
+  .order-form input[type="number"]:focus {
+    border-color: #2e662e;
+    outline-color: #4caf50;
+  }
+
+  .order-form button {
+    background-color: #2e662e;
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    letter-spacing: 0.8px;
+    box-shadow: 0 6px 10px rgba(46, 102, 46, 0.6);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .order-form button:hover {
+    background-color: #1b3c1b;
+    box-shadow: 0 8px 16px rgba(46, 102, 46, 0.9);
+    transform: translateY(-3px);
+  }
+
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(46, 102, 46, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    z-index: 1000;
+  }
+
+  .popup {
+    background: white;
+    padding: 30px 45px;
+    border-radius: 18px;
+    box-shadow: 0 14px 36px rgba(46, 102, 46, 0.4);
+    max-width: 450px;
+    text-align: center;
+    transform: scale(0.7);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+  }
+
+  .popup-overlay.show {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .popup-overlay.show .popup {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .popup h3 {
+    margin-bottom: 18px;
+    color: #2e662e;
+    font-size: 1.9rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  .popup p {
+    font-size: 1.2rem;
+    color: #3a742b;
+    margin-bottom: 25px;
+  }
+
+  .popup button.close-btn {
+    background-color: #4caf50;
+    border: none;
+    padding: 12px 28px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 12px #2e662e;
+    transition: background-color 0.3s ease;
+  }
+
+  .popup button.close-btn:hover {
+    background-color: #367c39;
+  }
+
+  footer {
+    background-color: #2e662e;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.3);
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 900px) {
+    main {
+      max-width: 100%;
+      margin: 24px auto;
+      padding: 0 8px;
+    }
+    section {
+      padding: 25px 15px;
+    }
+    .popup {
+      padding: 25px 18px;
+      max-width: 90vw;
+    }
+  }
+  @media (max-width: 600px) {
+    header {
+      padding: 18px 5px;
+    }
+    header h1 {
+      font-size: 2rem;
+    }
+    nav a {
+      margin: 0 10px;
+      font-size: 1rem;
+    }
+    .product-info {
+      flex-direction: column;
+      gap: 18px;
+    }
+    .product-item {
+      padding: 14px 6px;
+    }
+    section h2 {
+      font-size: 1.2rem;
+      padding-left: 7px;
+      margin-bottom: 14px;
+    }
+    .order-form input,
+    .order-form select,
+    .order-form button {
+      max-width: 98vw;
+      width: 100%;
+      font-size: 1rem;
+      margin: 10px 0 18px;
+      padding: 10px 7px;
+    }
+    footer {
+      font-size: 0.9rem;
+      padding: 10px 2px;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Air Step Relief</h1>
+  <nav>
+    <a href="#products">Products</a>
+    <a href="#order">Order</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+<main>
+  <section id="products">
+    <h2>Our Solution for Foot Rashes</h2>
+    <div class="product-info">
+      <div class="product-item">
+        <h3>Healing Spray</h3>
+        <img src="./assests/img/spray.jpg" height="250px" width="200px" alt="Healing Spray" />
+        <p>Natural spray designed to soothe and heal foot rashes quickly and effectively.</p>
+      </div>
+      <div class="product-item">
+        <h3>Comfort Insole</h3>
+        <img src="./assests/img/insole.jpg" height="250px" width="200px" alt="Comfort Insole" />
+        <p>Soft, breathable insoles that reduce irritation and prevent rash recurrence.</p>
+      </div>
+    </div>
+  </section>
+  <section id="order">
+    <h2>Order Your Products</h2>
+    <form class="order-form" id="orderForm" action="https://formspree.io/f/yourFormID" method="POST">
+      <input type="text" name="name" placeholder="Your Full Name" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+      <label for="product">Select Product:</label><br />
+      <select name="product" id="product" required>
+        <option value="" disabled selected>Select a product</option>
+        <option value="spray">Healing Spray</option>
+        <option value="insole">Comfort Insole</option>
+        <option value="combo">Spray + Insole Combo</option>
+      </select>
+      <input type="number" name="quantity" placeholder="Quantity" min="1" value="1" required />
+      <br />
+      <button type="submit">Place Order</button>
+    </form>
+  </section>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>If you have queries about the product or your order, feel free to reach out!</p>
+    <p>Email: cherrykamalesh@gmail.com</p>
+    <p>Phone: +91 87785 83290</p>
+  </section>
+</main>
+
+<!-- Popup Overlay -->
+<div class="popup-overlay" id="orderPopup">
+  <div class="popup">
+    <h3>Order Confirmation</h3>
+    <p>Your order has been placed. Our Team may call you to confirm your order.</p>
+    <button class="close-btn" id="closePopup">Close</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2025 Air Step Relief. All rights reserved.
+</footer>
+
+<script>
+const form = document.getElementById('orderForm');
+const popup = document.getElementById('orderPopup');
+const closeBtn = document.getElementById('closePopup');
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  fetch(form.action, {
+    method: 'POST',
+    body: new FormData(form),
+    headers: {
+      'Accept': 'application/json'
+    }
+  }).then(response => {
+    if (response.ok) {
+      popup.classList.add('show');
+      form.reset();
+    } else {
+      alert('There was a problem submitting your order.');
+    }
+  }).catch(() => {
+    alert('There was a problem submitting your order.');
+  });
+});
+
+closeBtn.addEventListener('click', () => {
+  popup.classList.remove('show');
+});
+popup.addEventListener('click', (e) => {
+  if (e.target === popup) {
+    popup.classList.remove('show');
+  }
+});
+</script>
+</body>
+</html>
